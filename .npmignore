@@ -30,3 +30,15 @@ build/development
 local_*
 bindings.go
 types
+
+
+# npmignore - content above this line is automatically generated and modifications may be omitted
+# see npmjs.com/npmignore for more details.
+test
+.circleci
+.github
+.vscode
+.gitattributes
+.solcover.js
+tsconfig.json
+tslint.json

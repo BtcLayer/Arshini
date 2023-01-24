@@ -1,7 +1,18 @@
 {
     "compilerOptions": {
-        "baseUrl": ".",
+        "typeRoots": ["types"],
+        "lib": ["es2015"],
+        "types": ["node", "mocha", "truffle-typings", "chai"],
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
         "esModuleInterop": true
     },
-    "exclude": ["node_modules/**"]
+    "include": [
+        "test",
+        "types"
+    ]
 }

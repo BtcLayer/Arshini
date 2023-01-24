@@ -1,105 +1,90 @@
-# `🛠️ ren-js`
+# `⚖️ darknode-sol`
 
-[![Version](https://img.shields.io/npm/v/@renproject/ren)](https://www.npmjs.com/package/@renproject/ren)
+## Ethereum smart contracts for managing darknodes
 
-The official Javascript SDK for interacting with [RenVM](https://renproject.io).
+[![CircleCI](https://circleci.com/gh/renproject/darknode-sol.svg?style=shield)](https://circleci.com/gh/renproject/darknode-sol)
+[![Coverage Status](https://coveralls.io/repos/github/renproject/darknode-sol/badge.svg?branch=master)](https://coveralls.io/github/renproject/darknode-sol?branch=master)
 
-```sh
-yarn add @renproject/ren @renproject/chains
-```
+Ren has two repositories for its Solidity contract:
 
-## Docs
+-   `darknode-sol` (this repository) - contracts on Ethereum for managing darknode registrations.
+-   [`gateway-sol`](https://github.com/renproject/gateway-sol) - contracts on multiple EVM chains for minting and burning of ren-assets.
 
-See [Ren Client Docs](https://renproject.github.io/ren-client-docs/ren-js/)
+Ren bootstraps off Ethereum to handle the REN token and darknode registrations.
 
-## RenJS v3
+## ~ [Documentation](https://renproject.github.io/ren-client-docs/contracts/) ~
 
-RenJS v3 is currently available as an alpha release:
-
-```sh
-yarn add @renproject/ren @renproject/chains
-```
-
-[RenJS v3 Docs](https://renproject.github.io/ren-client-docs/ren-js/ren-js-v3) (WIP)
-
-## Changelog
-
-See the [Releases page](https://github.com/renproject/ren-js/releases).
-
-## Package list
-
--   [`ren`](./packages/ren) - Javascript SDK for interacting with RenVM.
--   [`provider`](./packages/provider) - JSON-RPC provider.
--   [`utils`](./packages/utils) - Helper functions used by the other packages.
--   [`mock-provider`](./packages/mock-provider) - For testing locally with Ganache/Hardhat
--   chains, for enabling support for blockchains and assets:
--   -   [`chains-bitcoin`](./packages/chains/chains-bitcoin) - Bitcoin and Bitcoin forks
--   -   [`chains-ethereum`](./packages/chains/chains-ethereum) - Ethereum and other EVM chains
--   -   [`chains-terra`](./packages/chains/chains-terra) - Terra/LUNA
--   -   [`chains-filecoin`](./packages/chains/chains-filecoin) - Filecoin
--   -   [`chains-solana`](./packages/chains/chains-solana) - Solana
--   -   [`chains`](./packages/chains/chains) - Combines all of the above chains into one package
-
-<hr />
+-   For the latest contract addresses, see the [contract addresses](https://renproject.github.io/ren-client-docs/contracts/deployments) page.
+-   For a summary of each contract, see the [summary of contracts](https://renproject.github.io/ren-client-docs/contracts/summary) page.
 
 <details>
-<summary>Developer docs - click to expand</summary>
 
-<br />
+<summary>Development notes</summary>
 
-## Developing locally
+## Tests
 
-```sh
-# Clone repository
-git clone git@github.com:renproject/ren-js.git && cd ren-js
+Install the dependencies.
 
-# Install dependencies
-yarn
-
-# Build every package
-yarn run build
+```
+yarn install
 ```
 
-## Linking
-
-If you want to use your local version of RenJS in another repository, run
+Run the `ganache-cli` or an alternate Ethereum test RPC server on port 8545. The `-d` flag will use a deterministic mnemonic for reproducibility.
 
 ```sh
-# In the ren-js repository
-yarn run link:all
+yarn ganache-cli -d
 ```
 
-You can now link it to any other local repository by running:
-
-```sh
-# In other local repositories
-yarn link @renproject/ren @renproject/chains @renproject/utils @renproject/provider
-```
-
-## Running tests
-
-You'll need to:
-
-1. Generate a mnemonic and send ETH (goerli for testnet) (path: `m/44'/60'/0'/0/`).
-    - `let w = require("ethers").Wallet.createRandom(); console.debug(w.address, w.mnemonic.phrase);`
-2. Generate a private key and send testnet crypto funds.
-    - `require("send-crypto").newPrivateKey();`
-3. Optionally generate an [Infura](https://infura.io) API key.
-
-Create a `.env` file which contains the following exported variables:
-
-```sh
-export MNEMONIC="your mnemonic here"
-export TESTNET_PRIVATE_KEY="your bitcoin private key"
-
-# Optional
-export INFURA_KEY="your infura key"
-```
-
-To run the tests:
+Run the Truffle test suite.
 
 ```sh
 yarn run test
+```
+
+## Coverage
+
+Run the Truffle test suite with coverage.
+
+```sh
+yarn run coverage
+```
+
+Open the coverage file.
+
+```sh
+open ./coverage/index.html
+```
+
+## Deploying
+
+Add a `.env`, filling in the mnemonic and Infura key:
+
+```sh
+MNEMONIC_KOVAN="..."
+MNEMONIC_MAINNET="..."
+INFURA_KEY="..."
+```
+
+Deploy to Kovan:
+
+```sh
+NETWORK=kovan yarn run deploy
+```
+
+See `1_darknodes.js` for additional instructions.
+
+## Verifying Contract Code
+
+Add an Etherscan API key to your `.env`:
+
+```
+ETHERSCAN_KEY="..."
+```
+
+Run the following (replacing the network and contract name):
+
+```sh
+NETWORK=mainnet yarn run verify Contract1 Contract2
 ```
 
 </details>
