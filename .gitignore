@@ -1,15 +1,35 @@
-# Binaries and plugins
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
+# Any file in src or build will get pushed to npm
+!src
+build
 
-# Tests
-*.test
+# Environment variables/secrets
+*.env
 
-# Outputs from tools
-*.out
+# Typedoc output
+docs
 
-# IDE specific files
-.idea/
+# NPM/Yarn files
+node_modules
+package-lock.json
+.npmrc
+.yarnrc
+.yarn
+lerna-debug.log
+yarn-error.log
+.cache
+
+# Misc. logs
+*.log
+
+# Coverage
+.nyc_output
+coverage
+reports
+
+# IDE/OS specific
+.vscode
+.idea
+.dir-locals.el
+.editorconfig
+.DS_Store
+
