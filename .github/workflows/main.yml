@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+#  pull_request: # all pull requests
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.0
+
+      - name: Install deps and build (with cache)
+        uses: bahmutov/npm-install@v1
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Test
+        run: yarn test --ci --coverage --maxWorkers=2
+
+      - name: Build
+        run: yarn build
+
+      - name: DeployGHP
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build #folder
+
+      - name: Pack
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r build.zip build
+
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-zip
+          path: build.zip
