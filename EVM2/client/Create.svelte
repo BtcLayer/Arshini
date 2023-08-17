@@ -1,0 +1,102 @@
+<!-- @format -->
+
+<script>
+  import {push} from 'svelte-spa-router'
+
+  import QR from './QR.svelte'
+
+  import * as toast from './toast'
+
+  const emptyContract = {
+    name: '',
+    readme: '',
+    code: `function __init__ ()
+  return {}
+end
+
+function dosomething ()
+  if call.msatoshi < 10000 then
+    error('pay more!')
+  end
+
+  contract.state.something = call.payload.something
+end`
+  }
+
+  let contract = {...emptyContract}
+  var id
+  var invoice
+
+  async function prepare(e) {
+    // when the invoice is paid the contract will be created
+    e.preventDefault()
+
+    let r = await fetch('/~/contract', {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(contract)
+    })
+    let resp = await r.json()
+
+    if (!resp.ok) {
+      toast.warning(resp.error)
+      return
+    }
+
+    id = resp.value.id
+    invoice = resp.value.invoice
+
+    const es = new EventSource('/~~~/contract/' + id)
+    es.onerror = e => console.log('contract sse error', e.data)
+    es.addEventListener('contract-created', e => {
+      let data = JSON.parse(e.data)
+      toast.success(`contract ${data.id} created!`)
+      push('/contract/' + id)
+    })
+    es.addEventListener('contract-error', e => {
+      let data = JSON.parse(e.data)
+      toast.warning(`${data.kind} error creating contract: ${data.message}`)
+    })
+  }
+</script>
+
+<style>
+  label {
+    display: block;
+    margin: 12px;
+  }
+  input,
+  textarea {
+    display: block;
+    width: 100%;
+    font-size: 1.3rem;
+  }
+  textarea {
+    min-height: 210px;
+  }
+  textarea.code {
+    font-size: 1rem;
+    min-height: 540px;
+  }
+  button {
+    cursor: pointer;
+    margin: 12px;
+    padding: 12px;
+    font-size: 1.4rem;
+    background-color: var(--yellow);
+  }
+</style>
+
+{#if invoice}
+<div class="center">
+  <QR value="{invoice}" />
+  <p>pay to enable the contract</p>
+</div>
+{:else}
+<form on:submit="{prepare}">
+  <label>name:<input bind:value="{contract.name}"/></label>
+  <label>readme: <textarea bind:value="{contract.readme}"/></label>
+  <label>code:<textarea class="code" bind:value="{contract.code}"/></label>
+  <button>prepare contract</button>
+</form>
+{/if}

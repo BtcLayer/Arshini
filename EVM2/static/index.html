@@ -1,0 +1,33 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+
+<meta charset="utf-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
+<title>etleneum</title>
+<meta name="description" content="the centralized smart contract platform" />
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+/>
+<link rel="stylesheet" href="/static/global.css" />
+<link rel="stylesheet" href="/static/bundle.css" />
+
+<body>
+  <div id="app"></div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/fengari-web@0.1.4/dist/fengari-web.js"></script>
+<script src="/static/bundle.js"></script>
+<script>
+  fetch('https://etleneum.com/~/contract/czs3z7j9zf/state')
+    .then(r => r.json())
+    .then(r => r.value.hue)
+    .then(hue => {
+      document.documentElement.style.backgroundColor = `hsl(${hue}, 66%, 89%)`
+    })
+</script>

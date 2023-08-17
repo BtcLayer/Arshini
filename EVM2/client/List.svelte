@@ -1,0 +1,63 @@
+<!-- @format -->
+<script>
+  import {onMount} from 'svelte'
+  import {push} from 'svelte-spa-router'
+
+  var contracts
+
+  onMount(async () => {
+    let r = await fetch('/~/contracts')
+    contracts = (await r.json()).value
+    contracts.sort((a, b) => b.funds - a.funds)
+  })
+
+  function goToContract(e) {
+    let ctid = e.currentTarget.dataset.ctid
+    push(`/contract/${ctid}`)
+  }
+</script>
+
+<div id="contract-list">
+  {#if !contracts}
+    <div class="center">loading</div>
+  {:else}
+    {#each contracts as ct}
+      <div class="ct-list-item" on:click={goToContract} data-ctid={ct.id}>
+        <h1><a href="#/contract/{ct.id}">{ct.name}</a></h1>
+        <table>
+          <tr>
+            <td>id</td>
+            <td><b>{ct.id}</b></td>
+          </tr>
+          <tr>
+            <td>satoshi</td>
+            <td><b>{parseInt(ct.funds / 1000)}</b></td>
+          </tr>
+        </table>
+      </div>
+    {/each}
+  {/if}
+</div>
+
+<style>
+  #contract-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .ct-list-item {
+    cursor: pointer;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid var(--darkblue);
+    max-width: 400px;
+    transition: background-color 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .ct-list-item:hover {
+    background-color: var(--softblue);
+  }
+
+  .ct-list-item h1 {
+    font-size: 1.4rem;
+  }
+</style>
