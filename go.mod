@@ -1,38 +1,41 @@
-module github.com/renproject/multichain
+module github.com/renproject/darknode-cli
 
-go 1.16
+go 1.13
 
 require (
-	github.com/btcsuite/btcd v0.22.1
-	github.com/btcsuite/btcd/chaincfg/chainhash v1.0.1
-	github.com/btcsuite/btcutil v1.0.3-0.20201208143702-a53e38424cce
-	github.com/cosmos/cosmos-sdk v0.44.0
-	github.com/dchest/blake2b v1.0.0
-	github.com/ethereum/go-ethereum v1.10.23
-	github.com/filecoin-project/go-address v0.0.5
-	github.com/filecoin-project/go-jsonrpc v0.1.4-0.20210217175800-45ea43ac2bec
-	github.com/filecoin-project/go-state-types v0.1.1-0.20210506134452-99b279731c48
-	github.com/filecoin-project/lotus v1.10.0
-	github.com/filecoin-project/specs-actors v0.9.13
-	github.com/ipfs/go-cid v0.0.7
-	github.com/minio/blake2b-simd v0.0.0-20160723061019-3f5f724cb5b1
-	github.com/multiformats/go-varint v0.0.6
-	github.com/near/borsh-go v0.3.0
-	github.com/onsi/ginkgo v1.14.0
-	github.com/onsi/gomega v1.10.1
-	github.com/renproject/id v0.4.2
-	github.com/renproject/pack v0.2.5
-	github.com/renproject/solana-ffi v0.1.2
-	github.com/renproject/surge v1.2.6
-	github.com/tendermint/tendermint v0.34.12
-	github.com/terra-money/core v0.5.5
-	github.com/tyler-smith/go-bip39 v1.1.0
-	go.uber.org/zap v1.17.0
+	cloud.google.com/go v0.51.0 // indirect
+	github.com/aws/aws-sdk-go v1.41.8
+	github.com/btcsuite/btcd v0.20.1-beta
+	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
+	github.com/digitalocean/godo v1.69.1
+	github.com/ethereum/go-ethereum v1.9.6
+	github.com/fatih/color v1.7.0
+	github.com/golang/protobuf v1.4.3 // indirect
+	github.com/google/go-github/v39 v39.2.0
+	github.com/google/uuid v1.1.5 // indirect
+	github.com/gorilla/websocket v1.4.2 // indirect
+	github.com/hashicorp/go-version v1.2.0
+	github.com/hashicorp/golang-lru v0.5.5-0.20210104140557-80c98217689d // indirect
+	github.com/huin/goupnp v1.0.2 // indirect
+	github.com/jbenet/go-base58 v0.0.0-20150317085156-6237cf65f3a6
+	github.com/karalabe/usb v0.0.0-20211005121534-4c5740d64559 // indirect
+	github.com/kr/text v0.2.0 // indirect
+	github.com/multiformats/go-multiaddr v0.1.1
+	github.com/multiformats/go-multihash v0.0.8
+	github.com/olekukonko/tablewriter v0.0.5 // indirect
+	github.com/renproject/aw v0.3.7
+	github.com/renproject/mercury v0.3.15
+	github.com/renproject/phi v0.1.0
+	github.com/sirupsen/logrus v1.4.2
+	github.com/stretchr/testify v1.7.0 // indirect
+	github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7 // indirect
+	github.com/urfave/cli v1.22.5
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519
+	golang.org/x/net v0.0.0-20210805182204-aaa1db679c0d // indirect
+	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
+	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
+	golang.org/x/sys v0.0.0-20210816183151-1e6c022a8912 // indirect
+	google.golang.org/api v0.15.0
+	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
+	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
-
-replace github.com/filecoin-project/filecoin-ffi => ./chain/filecoin/filecoin-ffi
-
-replace github.com/renproject/solana-ffi => ./chain/solana/solana-ffi
-
-replace github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1

@@ -1,32 +1,19 @@
-# Node / NPM / Yarn
-node_modules
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
 
-# Build / test artifacts
-coverage
-dist
-coverageEnv
-coverage.json
-.coveralls.yml
-.coverage_artifacts
-.coverage_contracts
-*output.log
+# Test binary, build with `go test -c`
+*.test
 
-# Configuration files
-*.env
-.env*
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
 
-# OS files
+# Dependency
+vendor
+
+# IDE config
+.idea/
 .DS_Store
-
-# Solidity
-.node-xmlhttprequest-sync-*
-scTopics
-allFiredEvents
-in_complete_tests
-build/development
-local_*
-bindings.go
-types
