@@ -1,0 +1,185 @@
+version: "2"
+services:
+  #
+  # Acala
+  #
+  acala:
+    build:
+      context: ./acala
+    ports:
+      - "0.0.0.0:9933:9933"
+      - "0.0.0.0:9944:9944"
+    entrypoint:
+      - "./root/run.sh"
+      - "${ACALA_ADDRESS}"
+
+  #
+  # Binance Smart Chain
+  #
+  binance:
+    build:
+      context: ./binance
+    ports:
+      - "0.0.0.0:8575:8575"
+    entrypoint:
+      - "./root/run.sh"
+      - "${BINANCE_MNEMONIC}"
+      - "${BINANCE_ADDRESS}"
+
+  #
+  # Bitcoin
+  #
+  bitcoin:
+    build:
+      context: ./bitcoin
+    ports:
+      - "0.0.0.0:18443:18443"
+    entrypoint:
+      - "./root/run.sh"
+      - "${BITCOIN_ADDRESS}"
+      - "${BITCOIN_PK}"
+
+  #
+  # Bitcoin Cash
+  #
+  bitcoincash:
+    build:
+      context: ./bitcoincash
+    ports:
+      - "0.0.0.0:19443:19443"
+    entrypoint:
+      - "./root/run.sh"
+      - "${BITCOINCASH_ADDRESS}"
+
+  #
+  # DigiByte
+  #
+  digibyte:
+    build:
+      context: ./digibyte
+    ports:
+      - "0.0.0.0:20443:18443"
+    entrypoint:
+      - "/root/run.sh"
+      - "${DIGIBYTE_ADDRESS}"
+
+  #
+  # Dogecoin
+  #
+  dogecoin:
+    build:
+      context: ./dogecoin
+    ports:
+      - "0.0.0.0:18332:18332"
+    entrypoint:
+      - "./root/run.sh"
+      - "${DOGECOIN_ADDRESS}"
+
+  #
+  # Ethereum (EIP-1559 compatible)
+  #
+  ethereum:
+    build:
+      context: ./ethereum
+    ports:
+      - "0.0.0.0:8545:8545"
+
+  #
+  # Fantom
+  #
+  fantom:
+    build:
+      context: ./fantom
+    ports:
+      - "0.0.0.0:18545:18545"
+
+  #
+  # Filecoin
+  #
+  filecoin:
+    build:
+      context: ./filecoin
+    ports:
+      - "0.0.0.0:1234:1234"
+    entrypoint:
+      - "/root/run.sh"
+
+  #
+  # Zcash
+  #
+  zcash:
+    build:
+      context: ./zcash
+    ports:
+      - "0.0.0.0:18232:18232"
+    entrypoint:
+      - "./root/run.sh"
+      - "${ZCASH_ADDRESS}"
+
+  ##
+  ## Terra
+  ##
+  terra:
+    build:
+      context: ./terra
+    ports:
+      - "0.0.0.0:26657:26657"
+    entrypoint:
+      - "./root/run.sh"
+      - "${TERRA_ADDRESS}"
+
+  ##
+  ## Polygon
+  ##
+  polygon:
+    build:
+      context: ./polygon
+    ports:
+      - "0.0.0.0:28545:8545"
+    entrypoint:
+      - "./root/run.sh"
+
+  ##
+  ## Solana
+  ##
+  solana:
+    image: renbot/ren-solana:latest
+    ports:
+      - "0.0.0.0:8899-8900:8899-8900"
+
+  ##
+  ## Moonbeam
+  ##
+  moonbeam:
+    image: purestake/moonbeam:tutorial-v7
+    ports:
+      - "0.0.0.0:9944:9944"
+      - "0.0.0.0:9933:9933"
+    command: --dev --ws-external --rpc-external
+
+  #
+  # Avalanche
+  #
+  avalanche:
+    build:
+      context: ./avalanche
+    ports:
+      - "0.0.0.0:9650:9650"
+    entrypoint:
+      - "./run.sh"
+      - "${AVAX_USERNAME}"
+      - "${AVAX_PASSWORD}"
+      - "${AVAX_PK}"
+      - "${AVAX_ADDRESS}"
+      - "${C_AVAX_PK}"
+      - "${C_AVAX_HEX_ADDRESS}"
+      - "${C_AVAX_BECH32_ADDRESS}"
+
+  #
+  # Goerli (EIP-1559 compatible)
+  #
+  goerli:
+    build:
+      context: ./goerli
+    ports:
+      - "0.0.0.0:1545:8545"
